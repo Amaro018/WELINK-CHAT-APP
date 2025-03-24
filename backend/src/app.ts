@@ -4,10 +4,18 @@ import { Request, Response, NextFunction } from "express";
 import morgan from "morgan";
 import createHttpError, { isHttpError } from "http-errors";
 import userRoutes from "./routes/users";
+import messageRoutes from "./routes/message.routes";
 // import session from "express-session";
-// import validateEnv from "./utils/validateEnv";
+import validateEnv from "./utils/validateEnv";
+import cors from "cors";
 
 const app = express();
+app.use(
+  cors({
+    origin: validateEnv.FRONT_END_URL,
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -15,6 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(morgan("dev"));
 
 app.use("/api/users", userRoutes);
+app.use("/api/messages", messageRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
