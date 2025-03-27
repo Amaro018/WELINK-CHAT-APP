@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { SignUpCredentials } from "../../../../../../ARCHI/front-end/src/app/network/notes_api";
-import * as NotesApi from "../../../../../../ARCHI/front-end/src/app/network/notes_api";
+import * as NotesApi from "../../network/user_api";
 import { TextField } from "@mui/material";
 import NavBar from "@/app/components/NavBar";
 import { useRouter } from "next/navigation";

@@ -1,3 +1,10 @@
+import ChatDiv from "./components/ChatDiv";
+import { UserProvider } from "./context/UserContext";
+
 export default function Home() {
-  return <div>hello home</div>;
+  return (
+    <UserProvider>
+      <ChatDiv />
+    </UserProvider>
+  );
 }

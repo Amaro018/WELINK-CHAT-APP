@@ -1,11 +1,15 @@
 import type { NextConfig } from "next";
 
+console.log(
+  "NEXT_PUBLIC_API_PATH in next.config.ts:",
+  process.env.NEXT_PUBLIC_API_PATH
+);
 const nextConfig: NextConfig = {
   /* config options here */
   // reactStrictMode: true,
 
   env: {
-    API_PATH: process.env.API_PATH,
+    NEXT_PUBLIC_API_PATH: process.env.NEXT_PUBLIC_API_PATH,
   },
 
   images: {

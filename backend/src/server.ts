@@ -1,4 +1,5 @@
-import app from "./app";
+import { app } from "./app";
+import { server } from "./app";
 import env from "./utils/validateEnv";
 import mongoose from "mongoose";
 
@@ -13,9 +14,13 @@ mongoose
   })
   .catch((err) => console.log(err));
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
+// app.listen(port, () => {
+//   console.log(`Example app listening on port ${port}`);
+// });
 
 // app.get("/", (req, res) => {
 //     res.send("Hello World!");

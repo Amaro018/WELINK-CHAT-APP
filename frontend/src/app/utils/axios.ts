@@ -1,7 +1,9 @@
 import axios from "axios";
 
+console.log("API_PATH in next.config.ts:", process.env.NEXT_PUBLIC_API_PATH);
+
 const api = axios.create({
-  baseURL: process.env.API_PATH,
+  baseURL: process.env.NEXT_PUBLIC_API_PATH,
   withCredentials: true,
 });
 api.interceptors.request.use(

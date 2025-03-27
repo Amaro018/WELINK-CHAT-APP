@@ -1,6 +1,8 @@
 import { User } from "../models/user";
 import api from "../utils/axios";
+import { io, Socket } from "socket.io-client";
 
+let socket: Socket | null = null;
 //LOGIN & SIGNUP
 export interface SignUpCredentials {
   username: string;
@@ -36,14 +38,29 @@ export interface LoginCredentials {
 }
 
 export async function login(credentials: LoginCredentials): Promise<User> {
-  const response = await api.post("/api/users/login", credentials, {
-    withCredentials: true,
-  });
-  return response.data;
+  try {
+    console.log("🔐 Logging in with credentials:", credentials);
+
+    const response = await api.post("/api/users/login", credentials, {
+      withCredentials: true,
+    });
+    const user = response.data;
+
+    console.log("✅ Login successful:", user);
+    return user;
+  } catch (error) {
+    console.error("❌ Error logging in:", error);
+    throw error;
+  }
 }
 
 export async function logout() {
-  await api.post("/api/users/logout", {}, { withCredentials: true });
+  try {
+    await api.post("/api/users/logout", {}, { withCredentials: true });
+    console.log("✅ Logout successful");
+  } catch (error) {
+    console.error("❌ Error logging out:", error);
+  }
 }
 //LOGIN & SIGNUP
 
@@ -66,4 +83,8 @@ export async function updateUserInformation(
 
   console.log("User updated successfully");
   return response.data;
+}
+// Expose the socket globally so components can access it
+export function getSocket(): Socket | null {
+  return socket;
 }

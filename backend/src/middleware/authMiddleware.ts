@@ -6,28 +6,28 @@ import validateEnv from "../utils/validateEnv";
 
 export const protect: RequestHandler = async (req, res, next) => {
   try {
-    console.log("🔍 Incoming Cookies:", req.cookies);
-    console.log("🔍 Incoming Headers:", req.headers);
+    // console.log("🔍 Incoming Cookies:", req.cookies);
+    // console.log("🔍 Incoming Headers:", req.headers);
 
     const token = req.cookies?.jwt || req.headers.authorization?.split(" ")[1];
 
     if (!token) {
-      console.log("❌ No token found in cookies or headers");
+      // console.log("❌ No token found in cookies or headers");
       throw createHttpError(401, "Not authorized, no token");
     }
 
-    console.log("✅ Token Found:", token);
+    // console.log("✅ Token Found:", token);
 
     const decoded = jwt.verify(token, validateEnv.JWT_SECRET) as { id: string };
-    console.log("✅ Decoded Token:", decoded);
+    // console.log("✅ Decoded Token:", decoded);
 
     const user = await UserModel.findById(decoded.id).select("-password");
     if (!user) {
-      console.log("❌ User not found in DB");
+      // console.log("❌ User not found in DB");
       throw createHttpError(401, "User not found");
     }
 
-    console.log("✅ User Authenticated:", user.username);
+    // console.log("✅ User Authenticated:", user.username);
     req.user = user;
     next();
   } catch (error) {

@@ -34,6 +34,7 @@ export default function LoginForm() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+    console.log("Logging in with form:", form);
     e.preventDefault();
     try {
       const user = await userApi.login(form);
